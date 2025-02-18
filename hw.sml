@@ -31,3 +31,18 @@ fun dates_in_months(dates: (int*int*int) list, months : int list) =
     then []
     else dates_in_month(dates, hd months) @
         dates_in_months(dates, tl months)
+
+fun get_nth(strs : string list, n : int) = 
+    if n = 1
+    then hd strs
+    else get_nth(tl strs, n - 1)
+
+
+
+fun date_to_string(y : int, m : int, d : int) =
+    let
+      fun get_month(m) = get_nth(["January", "February", "March", "April", "May", 
+                "June", "July", "August", "September", "October", "November", "December"], m)
+    in
+      get_month(m) ^ " " ^ Int.toString(d) ^ ", " ^ Int.toString(y)
+    end
