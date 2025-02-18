@@ -46,16 +46,20 @@ fun date_to_string(y : int, m : int, d : int) =
     end
 
 (* (10, [1,2,3,4,5]) = 3 *)
-fun number_before_reaching_sum(sum : int, xs : int list) =
+fun number_before_reaching_sum(sum : int, numbers : int list) =
+  if hd numbers >= sum
+  then 0
+  else 1 + number_before_reaching_sum(sum - (hd numbers), tl numbers)
+
+fun what_month(day : int) =
   let
-    fun get_last_elem(xs : int list) =
-      if null (tl xs)
-      then hd xs
-      else get_last_elem(tl xs)
-    fun elem_before_sum(n : int, xs : int list) =
-      if n <= 0
-      then []
-      else hd xs :: elem_before_sum(n - hd xs, tl xs)
+    val months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   in
-    get_last_elem(elem_before_sum(sum, xs))
+     1 + number_before_reaching_sum(day, months)
   end
+
+fun month_range(day1 : int, day2 : int) =
+  if day1 = day2
+  then [what_month(day1)]
+  else what_month(day1) :: month_range(day1+1, day2)
+
