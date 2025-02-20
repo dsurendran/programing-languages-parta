@@ -1,11 +1,18 @@
-fun is_older(ymd1 : int  * int * int, ymd2 : int * int * int) =
-    if #1 ymd1 < #2 ymd2
-    then true
-    else if #2 ymd1 < #2 ymd2
-    then true
-    else if #3 ymd1 < #3 ymd2
-    then true
-    else false
+(* fun is_older1(ymd1 : int  * int * int, ymd2 : int * int * int) = *)
+(*     if #1 ymd1 < #2 ymd2 *)
+(*     then true *)
+(*     else if #2 ymd1 < #2 ymd2 *)
+(*     then true *)
+(*     else if #3 ymd1 < #3 ymd2 *)
+(*     then true *)
+(*     else false *)
+
+fun is_older(date1 : int*int*int, date2 : int*int*int) =
+  if (#1 date1 ) <> (#1 date2)
+  then (#1 date1) < (#1 date2)
+  else if (#2 date1) <> (#2 date2)
+  then (#2 date1) < (#2 date2)
+  else (#3 date1) < (#3 date2)
 
 fun number_in_month(dates : (int*int*int) list, month : int) =
     if null dates
@@ -63,3 +70,12 @@ fun month_range(day1 : int, day2 : int) =
   then [what_month(day1)]
   else what_month(day1) :: month_range(day1+1, day2)
 
+(* oldest([(2012,2,28),(2011,3,31), (2011,4,28)]) *)
+fun oldest(dates : (int * int * int) list) =
+  if null dates
+  then NONE
+  else if null (tl dates)
+  then SOME(hd dates)
+  else if is_older(hd dates, hd(tl dates))
+  then SOME(hd dates)
+  else oldest(tl dates)
