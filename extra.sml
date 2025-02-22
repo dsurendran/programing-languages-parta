@@ -24,3 +24,15 @@ fun min_max(xs : int list) =
     in
         min_max1(xs, hd xs, hd xs)
     end
+
+(* [1,4,20] [1,5,25] *)
+fun cumsum(xs : int list) =
+    let
+        fun helper(xs : int list, sum : int) =
+            if null xs
+            then []
+            else (sum + (hd xs))
+                 :: helper(tl xs, (sum + (hd xs)))
+    in
+        helper(xs, 0)
+    end
