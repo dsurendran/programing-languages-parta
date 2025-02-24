@@ -36,3 +36,14 @@ fun cumsum(xs : int list) =
     in
         helper(xs, 0)
     end
+
+fun repeat(xs: int list, count : int list) =
+    if null xs then []
+    else
+        let
+            fun repeat_element(elem : int, count : int) =
+                if count = 0 then []
+                else elem :: repeat_element(elem, count - 1)
+        in
+            repeat_element(hd xs, hd count) @ repeat(tl xs, tl count)
+        end
