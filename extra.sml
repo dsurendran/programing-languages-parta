@@ -47,3 +47,8 @@ fun repeat(xs: int list, count : int list) =
         in
             repeat_element(hd xs, hd count) @ repeat(tl xs, tl count)
         end
+
+fun zip(xs : int list, ys : int list) =
+    if null xs orelse null ys
+    then []
+    else (hd xs, hd ys) :: zip (tl xs, tl ys)
