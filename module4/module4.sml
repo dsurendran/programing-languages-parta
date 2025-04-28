@@ -91,9 +91,9 @@ fun inc_or_zero intoption =
     | SOME i => i + 1
 
 (* Lists *)
+(* list and option are not types but type constructors that 
+* take type parameters *)
 (* [] :: are just constructors *)
-(* do not use tl hd null*)
-
 fun sum_list xs =
   case xs of
     [] => 0
@@ -105,10 +105,19 @@ fun append (xs, ys) =
     | x::xs' => x :: append(xs', ys);
 
 (*More pattern matching in each of type*)
+(* Every function in ML uses pattern matching *)
 fun sum_triple triple =
   case triple of
     (x,y,z) => x + y + z
 
+fun sum_triple(x,y,z) = x + y + z
+
 fun full_name r =
   case r of
     {first=x, second=y, last=z} => x ^ " " ^ y ^ " " ^ z
+fun full_name {first=x, second=y, last =z} = x ^ " " ^ y ^ " " ^ z
+
+(* Every function in ML takes exactly one argument, that is tuple *)
+fun rotate_left(x,y,z) = (y,z,x)
+fun rotate_right(x,y,z) = rotate_left(rotate_left(x,y,z))
+
