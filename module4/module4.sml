@@ -136,3 +136,26 @@ fun unzip3 lst =
                         (a::l1, b::l2, c::l3)
                       end
 
+fun nondecreasing xs =
+  case xs of
+       [] => true
+     | x::[] => true
+     | head::(neck::rest) => head <= neck andalso nondecreasing(neck :: rest)
+
+datatype sgn = P | N | Z
+
+fun multsign(x1, x2) = 
+  let 
+    fun sign x = if x = 0 then Z else if x > 0 then P else N
+  in
+    case (sign x1, sign x2) of
+         (P, P) => P
+       | (N, N) => P
+       | (_, Z) => Z
+       | (Z, _) => Z
+       | _ => N
+  end
+
+
+
+
