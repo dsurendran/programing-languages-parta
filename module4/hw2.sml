@@ -15,13 +15,13 @@ fun all_except_option(str : string, strs: string list) =
           | hd :: xs' => if same_string(elem, hd) 
             then xs'
             else hd :: remove_from_list(elem, xs')
-          in
-            case strs of
-                 [] => NONE
-               | hd :: strs' => if same_string(hd, str) 
-                                then SOME(remove_from_list(hd, strs))
-                                else all_except_option(str, strs')
-          end
+  in
+    case strs of
+         [] => NONE
+       | hd :: strs' => if same_string(hd, str) 
+                         then SOME(remove_from_list(hd, strs))
+                         else all_except_option(str, strs')
+  end
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
