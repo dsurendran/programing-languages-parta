@@ -141,7 +141,7 @@ fun nondecreasing xs =
        [] => true
      | x::[] => true
      | head::(neck::rest) => head <= neck andalso nondecreasing(neck :: rest)
-
+ 
 datatype sgn = P | N | Z
 
 fun multsign(x1, x2) = 
