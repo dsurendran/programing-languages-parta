@@ -20,17 +20,14 @@ exception IllegalMove
 
 (* put your solutions for problem 1 here *)
 (* a, [b,a,c] *)
-fun all_except_option(str, []) = NONE
+fun all_except_option (str, []) = NONE
   | all_except_option (str, head::tail) = case same_string(str,head) of
                                           true => SOME tail
                                         | false => case all_except_option(str, tail) of
                                                        NONE => NONE
                                                      | SOME xs => SOME (head :: xs)
 
-fun get_substitutions1(xs : string list list, s : string) =
-  case xs of
-      [] => []
-    | x::xs' => case all_except_option(s, x) of
-                    NONE => get_substitutions1(xs',s)
-                  | SOME ll => ll @ get_substitutions1(xs',s);
-
+fun get_substitutions1 ([], str) = []
+  | get_substitutions1 (x::xs', str) = case all_except_option(str, x) of
+                                           NONE => get_substitutions1 (xs',str)
+                                        | SOME ll => ll @ get_substitutions1 (xs',str)
