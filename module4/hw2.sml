@@ -31,3 +31,25 @@ fun get_substitutions1 ([], str) = []
   | get_substitutions1 (x::xs', str) = case all_except_option(str, x) of
                                            NONE => get_substitutions1 (xs',str)
                                         | SOME ll => ll @ get_substitutions1 (xs',str)
+
+
+fun get_substitutions2 (xs, str) =
+    let
+        fun get_subs([], str, acc) = acc
+          | get_subs (x::xs', str, acc) = case all_except_option(str, x) of
+                                             NONE => get_subs(xs', str, acc)
+                                           | SOME ll => get_subs(xs', str, ll @ acc)
+    in
+        get_subs(xs, str, [])
+    end
+
+fun similar_names(xs, name) =
+    let
+        val {first = first_name, middle = middle_name, last = last_name} = name
+        fun get_names [] = []
+          | get_names (x::xs') = {first = x, middle = middle_name, last = last_name}
+                                          :: get_names(xs')
+
+    in
+        name::get_names(get_substitutions2(xs, first_name))
+    end
